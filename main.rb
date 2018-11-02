@@ -16,7 +16,7 @@ ANSWERS = [#Положительные:
 "● Most likely (Вероятнее всего)",
 "● Outlook good (Хорошие перспективы)",
 "● Signs point to yes (Знаки говорят — «да»)",
-"● Yes (Да)"
+"● Yes (Да)",
 
 #Нейтральные
 
@@ -42,7 +42,7 @@ Telegram::Bot::Client.run(token) do |bot|
     when '/stop'
       bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
     else
-      bot.api.send_message(chat_id: message.chat.id, ANSWERS.sample)
+      bot.api.send_message(chat_id: message.chat.id, text: ANSWERS.sample)
     end
   end
 end
