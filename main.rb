@@ -2,6 +2,38 @@ require 'telegram/bot'
 
 token = ENV['TELEGRAM_KEY']
 
+ANSWERS = [#Положительные:
+
+"● It is certain (Бесспорно)",
+"● It is decidedly so (Предрешено)",
+"● Without a doubt (Никаких сомнений)",
+"● Yes — definitely (Определённо да)",
+"● You may rely on it (Можешь быть уверен в этом)",
+
+#Нерешительно положительные
+
+"● As I see it, yes (Мне кажется — «да»)",
+"● Most likely (Вероятнее всего)",
+"● Outlook good (Хорошие перспективы)",
+"● Signs point to yes (Знаки говорят — «да»)",
+"● Yes (Да)"
+
+#Нейтральные
+
+"● Reply hazy, try again (Пока не ясно, попробуй снова)",
+"● Ask again later (Спроси позже)",
+"● Better not tell you now (Лучше не рассказывать)",
+"● Cannot predict now (Сейчас нельзя предсказать)",
+"● Concentrate and ask again (Сконцентрируйся и спроси опять)",
+
+#Отрицательные
+
+"● Don’t count on it (Даже не думай)",
+"● My reply is no (Мой ответ — «нет»)",
+"● My sources say no (По моим данным — «нет»)",
+"● Outlook not so good (Перспективы не очень хорошие)",
+"● Very doubtful (Весьма сомнительно)"]
+
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
     case message.text
@@ -9,6 +41,8 @@ Telegram::Bot::Client.run(token) do |bot|
       bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}")
     when '/stop'
       bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
+    else
+      bot.api.send_message(chat_id: message.chat.id, ANSWERS.sample)
     end
   end
 end
